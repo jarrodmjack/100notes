@@ -16,24 +16,51 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-app.get('/',(request, response)=>{
-    db.collection('100notes').find().sort({likes: -1}).toArray()
+
+app.get('/',(request, response) => {
+    // this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
+    db.collection('100notes').countDocuments()
+    .then(count => {
+    // logs the total number of notes in the db and the remaining number (from the 100)
+        console.log(`Total number of notes: ${count}`)
+        console.log(`Remaining notes:${100 - count}`) 
+    })
+
+    db.collection('100notes').find().sort({likes: -1}).toArray()  
     .then(data => {
-        response.render('index.ejs', { info: data })
+        response.render('index.ejs', { info: data })  
     })
     .catch(error => console.error(error))
 })
 
+
 app.post('/addNote', (request, response) => {
-    db.collection('100notes').insertOne({noteTitle: request.body.noteTitle.trim(),
-    noteBody: request.body.noteBody, likes: 0})
+
+    async function checkNoteCount() {
+   // this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
+    const noteCount =  await db.collection('100notes').countDocuments()
     
-    .then(result => {
-        console.log('Note Added')
-        response.redirect('/')
-    })
-    .catch(error => console.error(error))
+    // conditionals below will check if the number of notes is greater or equal than 100 
+    // at the 101st click, it'll stop saving notes and take the user to a "Limit notice page" using the 'notes-limit-reached.ejs' template 
+    // the user can deeelaytay notes and free up space to add other notes; therefore, saving the environment.
+        if(noteCount >= 100) {
+            response.render('notes-limit-reached.ejs')
+        }  else {
+            // if the number of notes is less than 100 the following code will run
+            db.collection('100notes').insertOne({noteTitle: request.body.noteTitle,
+            noteBody: request.body.noteBody, likes: 0})
+
+            console.log('Note Added')
+            response.redirect('/')
+        }
+
+    }
+    checkNoteCount()
+    .catch(error => console.log(error))
+
 })
+
+
 
 // app.put('/addOneLike', (request, response) => {
 //     db.collection('100notes').updateOne({noteTitle: request.body.noteTitleS, noteBody: request.body.noteBodyS,likes: request.body.likesS},{
