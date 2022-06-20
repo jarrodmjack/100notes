@@ -14,6 +14,11 @@ async function deleteNote(){
 
     const sTitle = this.parentNode.childNodes[1].innerText
     const sBody = this.parentNode.childNodes[3].innerText
+    console.log(sTitle, sBody)
+    this.parentNode.childNodes.forEach((item, i) => {
+        console.log(item.innerText,i)
+    })
+
     try{
         const response = await fetch('deleteNote', {
             method: 'delete',
@@ -32,26 +37,26 @@ async function deleteNote(){
     }
 }
 
-async function addLike(){
-    console.log('like button click')
-    const sTitle = this.parentNode.childNodes[1].innerText
-    const sBody = this.parentNode.childNodes[3].innerText
-    const tLikes = Number(this.parentNode.childNodes[5].innerText)
-    try{
-        const response = await fetch('addOneLike', {
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              'noteTitleS': sTitle,
-              'noteBodyS': sBody,
-              'likesS': tLikes
-            })
-          })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
+// async function addLike(){
+//     console.log('like button click')
+//     const sTitle = this.parentNode.childNodes[1].innerText.trim()
+//     const sBody = this.parentNode.childNodes[3].innerText
+//     const tLikes = Number(this.parentNode.childNodes[5].innerText)
+//     try{
+//         const response = await fetch('addOneLike', {
+//             method: 'put',
+//             headers: {'Content-Type': 'application/json'},
+//             body: JSON.stringify({
+//               'noteTitleS': sTitle,
+//               'noteBodyS': sBody,
+//               'likesS': tLikes
+//             })
+//           })
+//         const data = await response.json()
+//         console.log(data)
+//         location.reload()
 
-    }catch(err){
-        console.log(err)
-    }
-}
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
