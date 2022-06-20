@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>100 Notes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                     <label for="noteTitle">Add New Note</label>
                     <input type="text" placeholder="Note Title" name="noteTitle">
                     <label for="noteBody">Add New Note</label>
-                    <input type="text" placeholder="Note Body" name="noteBody">
+                    <textarea placeholder="Note Body" name="noteBody" id="textArea" cols="3" rows="10"></textarea>
                     <input type="submit">
                 </form>
             </div>
@@ -54,18 +54,25 @@
                     <% } %>
             </ul>  -->
 
-
-
+        <div class="styleParent">
+            <div class="bubble1"></div>
+            <div class="bubble2"></div>
+            <div class="break"></div>
+            <div class="freezerHandle"></div>
+            <div class="fridgeHandle"></div>
+            <div class="handleHightlight1"></div>
+            <div class="handleHighlight2"></div>
+        </div>
              <% for(let i=0; i < info.length; i++) {%>
                 <div class="noteContainer">
                     <ul class="notes">
                         <li class="note">
-                            <span>
+                            <span class="noteTitle">
                                 <%= info[i].noteTitle %>
-                            </span>
+                            </span></br>
                             <span>
                                 <%= info[i].noteBody %>
-                            </span>
+                            </span></br>
                             <!-- <span>
                                 <%= info[i].likes %>
                             </span> -->
