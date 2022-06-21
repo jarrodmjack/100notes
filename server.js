@@ -7,9 +7,9 @@ const { MongoClient } = mongo
 const app = express()
 const PORT = 8000
 
-let dbConnectionStr = process.env.DB_STRING,
+let db,
+    dbConnectionStr = process.env.DB_STRING,
     dbName = '100notes'
-const client = await getMongoClient()
     
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
