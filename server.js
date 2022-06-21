@@ -16,6 +16,24 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
+// this async function fetches the date and time of the user from an API according to their ip address
+async function getDate() {
+    try {
+        // fun fact fetch requests are relatively new in node.js
+        const response = await fetch("https://worldtimeapi.org/api/ip")
+        const data = await response.json()
+         // data.datetime gives us the date and time
+         // the date returned by the API is jumbled with the time of the day including seconds
+        // so I guess I did a codewars (below) and extracted the date out of the string
+        const date = data.datetime.split('').slice(0, data.datetime.indexOf('T')).join('')
+        console.log(date)
+        return date
+        
+    } catch(err) {
+        console.log(err)
+    }
+}
+
 
 app.get('/',(request, response) => {
     // this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
@@ -37,9 +55,13 @@ app.get('/',(request, response) => {
 app.post('/addNote', (request, response) => {
 
     async function checkNoteCount() {
-   // this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
+    // this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
     const noteCount =  await db.collection('100notes').countDocuments()
-    
+
+    //  we assign the async function that fetches the date from an api a variable below. It will give us the date the note was added because the post request
+    // is triggered "whenever" the user adds the note.
+    const dateAdded = await getDate()
+
     // conditionals below will check if the number of notes is greater or equal than 100 
     // at the 101st click, it'll stop saving notes and take the user to a "Limit notice page" using the 'notes-limit-reached.ejs' template 
     // the user can deeelaytay notes and free up space to add other notes; therefore, saving the environment.
@@ -47,8 +69,10 @@ app.post('/addNote', (request, response) => {
             response.render('notes-limit-reached.ejs')
         }  else {
             // if the number of notes is less than 100 the following code will run
+
+            // added the dateAdded variables to the document so it can be retrieved from the main template
             db.collection('100notes').insertOne({noteTitle: request.body.noteTitle,
-            noteBody: request.body.noteBody, likes: 0})
+            noteBody: request.body.noteBody, likes: 0, dateAdded})
 
             console.log('Note Added')
             response.redirect('/')
