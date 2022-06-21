@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Project Name: 100notes",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
@@ -15,7 +16,8 @@
     "dotenv": "^8.6.0",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "mongodb": "^3.7.3"
+    "mongodb": "^3.7.3",
+    "node-fetch": "^3.2.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

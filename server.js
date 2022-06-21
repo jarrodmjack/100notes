@@ -1,8 +1,11 @@
-const express = require('express')
+import 'dotenv/config'
+import express from 'express'
+import fetch from 'node-fetch'
+import mongo from 'mongodb'
+const { MongoClient } = mongo
+
 const app = express()
-const MongoClient = require('mongodb').MongoClient
 const PORT = 8000
-require('dotenv').config()
 
 let db,
     dbConnectionStr = process.env.DB_STRING,
@@ -28,30 +31,29 @@ async function getDate() {
         console.log(date)
         return date
         
-    } catch(err) {
-        console.log(err)
-    }
+    } catch(error) {
+		console.log(error)
+	}
 }
 
 
-app.get('/',(request, response) => {
-    // this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
-    db.collection('100notes').countDocuments()
-    .then(count => {
-    // logs the total number of notes in the db and the remaining number (from the 100)
-        console.log(`Total number of notes: ${count}`)
-        console.log(`Remaining notes:${100 - count}`) 
-    })
+app.get('/', async (request, response) => {
+	try {
+    	// this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
+	    const count = await db.collection('100notes').countDocuments()
+    	// logs the total number of notes in the db and the remaining number (from the 100)
+	    console.log(`Total number of notes: ${count}`)
+    	console.log(`Remaining notes:${100 - count}`) 
 
-    db.collection('100notes').find().sort({likes: -1}).toArray()  
-    .then(data => {
-        response.render('index.ejs', { info: data })  
-    })
-    .catch(error => console.error(error))
+	    const data = await db.collection('100notes').find().sort({likes: -1}).toArray()
+    	response.render('index.ejs', { info: data })  
+	} catch(error) {
+		console.error(error)
+	}
 })
 
 
-app.post('/addNote', (request, response) => {
+app.post('/addNote', async (request, response) => {
 
     async function checkNoteCount() {
     // this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
@@ -70,17 +72,21 @@ app.post('/addNote', (request, response) => {
             // if the number of notes is less than 100 the following code will run
 
             // added the dateAdded variables to the document so it can be retrieved from the main template
-            db.collection('100notes').insertOne({noteTitle: request.body.noteTitle,
-            noteBody: request.body.noteBody, likes: 0, dateAdded})
+			try {
+            	db.collection('100notes').insertOne({noteTitle: request.body.noteTitle,
+            	noteBody: request.body.noteBody, likes: 0, dateAdded})
 
-            console.log('Note Added')
-            response.redirect('/')
+            	console.log('Note Added')
+            	response.redirect('/')
+			} catch(error) {
+				console.log('Failed to add note')
+				console.log(error)
+			}
         }
 
     }
     checkNoteCount()
-    .catch(error => console.log(error))
-
+//    .catch(error => console.log(error))
 })
 
 
@@ -102,15 +108,15 @@ app.post('/addNote', (request, response) => {
 
 // })
 
-app.delete('/deleteNote', (request, response) => {
+app.delete('/deleteNote', async (request, response) => {
     // console.log(request.body.noteTitleS)
-    db.collection('100notes').deleteOne({noteTitle: request.body.noteTitleS.trim()})
-    .then(result => {
+	try {
+    	const result = await db.collection('100notes').deleteOne({noteTitle: request.body.noteTitleS.trim()})
         console.log('Note Deleted')
         response.json('Note Deleted')
-    })
-    .catch(error => console.error(error))
-
+    } catch(error) {
+		console.error(error)
+	}
 })
 
 MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
@@ -125,5 +131,5 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
             console.log(`Server running on port ${PORT}`)
         })
     })
-    .catch(err => console.log(err))
+    .catch(error => console.log(error))
 
