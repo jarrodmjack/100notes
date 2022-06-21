@@ -24,10 +24,9 @@
                 <h1>100 Notes</h1>
                 <form class="form" action="/addNote" method="POST">
                     <label for="noteTitle">Add New Note</label>
-                    <input type="text" placeholder="Note Title" name="noteTitle">
-                    <label for="noteBody">Add New Note</label>
+                    <input type="text" placeholder="Note Title" name="noteTitle" id="titleInput">
                     <textarea placeholder="Note Body" name="noteBody" id="textArea" cols="3" rows="10"></textarea>
-                    <input type="submit">
+                    <button type="submit" id="button">Submit</button>
                 </form>
             </div>
         </section>
@@ -54,15 +53,6 @@
                     <% } %>
             </ul>  -->
 
-        <div class="styleParent">
-            <div class="bubble1"></div>
-            <div class="bubble2"></div>
-            <div class="break"></div>
-            <div class="freezerHandle"></div>
-            <div class="fridgeHandle"></div>
-            <div class="handleHightlight1"></div>
-            <div class="handleHighlight2"></div>
-        </div>
              <% for(let i=0; i < info.length; i++) {%>
                 <div class="noteContainer">
                     <ul class="notes">
