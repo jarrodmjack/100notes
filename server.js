@@ -90,22 +90,22 @@ app.post('/addNote', async (request, response) => {
 
 
 
-// app.put('/addOneLike', (request, response) => {
-//     db.collection('100notes').updateOne({noteTitle: request.body.noteTitleS, noteBody: request.body.noteBodyS,likes: request.body.likesS},{
-//         $set: {
-//             likes:request.body.likesS + 1
-//           }
-//     },{
-//         sort: {_id: -1},
-//         upsert: true
-//     })
-//     .then(result => {
-//         console.log('Added One Like')
-//         response.json('Like Added')
-//     })
-//     .catch(error => console.error(error))
+app.put('/addOneLike', (request, response) => {
+    db.collection('100notes').updateOne({noteTitle: request.body.noteTitleS, noteBody: request.body.noteBodyS,likes: request.body.likesS},{
+        $set: {
+            likes:request.body.likesS + 1
+          }
+    },{
+        sort: {_id: -1},
+        upsert: true
+    })
+    .then(result => {
+        console.log('Added One Like')
+        response.json('Like Added')
+    })
+    .catch(error => console.error(error))
 
-// })
+})
 
 app.delete('/deleteNote', async (request, response) => {
     // console.log(request.body.noteTitleS)
