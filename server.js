@@ -7,10 +7,9 @@ const { MongoClient } = mongo
 const app = express()
 const PORT = 8000
 
-let db,
-    dbConnectionStr = process.env.DB_STRING,
+let dbConnectionStr = process.env.DB_STRING,
     dbName = '100notes'
-
+const client = await getMongoClient()
     
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
@@ -32,24 +31,24 @@ async function getDate() {
         return date
         
     } catch(error) {
-		console.log(error)
-	}
+        console.log(error)
+    }
 }
 
 
 app.get('/', async (request, response) => {
-	try {
-    	// this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
-	    const count = await db.collection('100notes').countDocuments()
-    	// logs the total number of notes in the db and the remaining number (from the 100)
-	    console.log(`Total number of notes: ${count}`)
-    	console.log(`Remaining notes:${100 - count}`) 
+    try {
+        // this line of code (below) uses a mongodb method that counts the number of documents (notes) in a collection.
+        const count = await db.collection('100notes').countDocuments()
+        // logs the total number of notes in the db and the remaining number (from the 100)
+        console.log(`Total number of notes: ${count}`)
+        console.log(`Remaining notes:${100 - count}`) 
 
-	    const data = await db.collection('100notes').find().sort({likes: -1}).toArray()
-    	response.render('index.ejs', { info: data })  
-	} catch(error) {
-		console.error(error)
-	}
+        const data = await db.collection('100notes').find().sort({likes: -1}).toArray()
+        response.render('index.ejs', { info: data })  
+    } catch(error) {
+        console.error(error)
+    }
 })
 
 
@@ -72,16 +71,16 @@ app.post('/addNote', async (request, response) => {
             // if the number of notes is less than 100 the following code will run
 
             // added the dateAdded variables to the document so it can be retrieved from the main template
-			try {
-            	db.collection('100notes').insertOne({noteTitle: request.body.noteTitle,
-            	noteBody: request.body.noteBody, likes: 0, dateAdded})
+            try {
+                db.collection('100notes').insertOne({noteTitle: request.body.noteTitle,
+                noteBody: request.body.noteBody, likes: 0, dateAdded})
 
-            	console.log('Note Added')
-            	response.redirect('/')
-			} catch(error) {
-				console.log('Failed to add note')
-				console.log(error)
-			}
+                console.log('Note Added')
+                response.redirect('/')
+            } catch(error) {
+                console.log('Failed to add note')
+                console.log(error)
+            }
         }
 
     }
@@ -110,13 +109,13 @@ app.post('/addNote', async (request, response) => {
 
 app.delete('/deleteNote', async (request, response) => {
     // console.log(request.body.noteTitleS)
-	try {
-    	const result = await db.collection('100notes').deleteOne({noteTitle: request.body.noteTitleS.trim()})
+    try {
+        const result = await db.collection('100notes').deleteOne({noteTitle: request.body.noteTitleS.trim()})
         console.log('Note Deleted')
         response.json('Note Deleted')
     } catch(error) {
-		console.error(error)
-	}
+        console.error(error)
+    }
 })
 
 MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
