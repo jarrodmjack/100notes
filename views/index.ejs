@@ -60,6 +60,12 @@
                         <li class="note"> -->
                     <div class="topOfNote">
                         <div class="noteTitleContainer">
+                            <!--Generate a unique id for the noteTitle to get it directly instead of
+                            relying on parentNode.ChildNode[number].innerText which changed everytime we
+                            altered the position of the element at all.  Since id's can't contain whitespace
+                            in html, we convert all of the spaces to '-' and the + will condense one or more
+                            spaces into a single '-'.  We can do this, because we set noteTitle to be a unique
+                            index on mongoDB-->
                             <span id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}`%>" class="noteTitle">
                                 <!-- <span class="noteTitle"> -->
                                 <%= info[i].noteTitle %>
@@ -71,6 +77,10 @@
                         </div>
 
                         <div class="noteBodyContainer">
+                            <!-- Again we're using the uniqueness of the noteTitle to generate a unique id
+                            we can use to easily access the innerText of this element (the noteBody).  We once
+                            again have to get rid of the whitespace in the title and we do it by replace it with '-' for 
+                            simplicity.-->
                             <span id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}-body`%>" class="noteBody">
                                 <%= info[i].noteBody %>
                             </span>
@@ -81,6 +91,12 @@
                             <%= info[i].likes %>
                         </span>
 
+                        <!-- Again we're using the uniqueness of the noteTitle to generate a unique id
+                        we can use to easily access this element.  We once
+                        again have to get rid of the whitespace in the title and we do it by replace it with '-' for 
+                        simplicity.  In this case we append the number of likes after '---' in the id so that we
+                        can get that number directly from this id by splitting it in main.js so we can use it to 
+                        update that number in the database.-->
                         <span class='fa fa-star' id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}---${info[i].likes}`%>">
                         </span>
                         <span class='fa fa-trash' id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}`%>-delete">
