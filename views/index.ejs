@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -47,32 +48,50 @@
                         <!-- <span>
                             <%= info[i].likes %>
                         </span> -->
-                        <!-- <span class='fa fa-thumbs-up'></span> -->
-                        <!-- <span class='fa fa-trash'></span>
+            <!-- <span class='fa fa-thumbs-up'></span> -->
+            <!-- <span class='fa fa-trash'></span>
                     </li>
                     <% } %>
             </ul>  -->
 
-             <% for(let i=0; i < info.length; i++) {%>
+            <% for(let i=0; i < info.length; i++) {%>
                 <div class="noteContainer">
-                    <ul class="notes">
-                        <li class="note">
-                            <span class="noteTitle">
+                    <!-- <ul class="notes">
+                        <li class="note"> -->
+                    <div class="topOfNote">
+                        <div class="noteTitleContainer">
+                            <span id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}`%>" class="noteTitle">
+                                <!-- <span class="noteTitle"> -->
                                 <%= info[i].noteTitle %>
-                            </span></br>
-                            <span>
-                                <%= info[i].noteBody %>
-                            </span></br>
-                            <span>
-                                <%= info[i].likes %>
                             </span>
-                            <span class='fa fa-thumbs-up'></span>
-                            <span class='fa fa-trash'></span>
-                            <span>Date added: <%= info[i].dateAdded %></span>
-                        </li>
-                    </ul>
+
+                            <span class="dateAdded">
+                                <%= info[i].dateAdded %>
+                            </span>
+                        </div>
+
+                        <div class="noteBodyContainer">
+                            <span id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}-body`%>" class="noteBody">
+                                <%= info[i].noteBody %>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="noteIconContainer">
+                        <span>
+                            <%= info[i].likes %>
+                        </span>
+
+                        <span class='fa fa-star' id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}---${info[i].likes}`%>">
+                        </span>
+                        <span class='fa fa-trash' id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}`%>-delete">
+
+                        </span>
+
+                    </div>
+                    <!-- </li>
+                    </ul> -->
                 </div>
-                <% } %> 
+                <% } %>
 
 
         </section>
