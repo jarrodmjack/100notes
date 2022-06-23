@@ -72,7 +72,7 @@ button {
 /* Form container/main container */
 
 .mainContainer{
-    height: 100vh;
+    /* min-height: 100vh; */
     width: 30vw;
     background-color: rgba(152, 213, 234, 0.65);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -106,7 +106,7 @@ button {
 /* fridge container */
 
 .fridgeContainer{
-    height: 100vh;
+    min-height: 100vh;
     width: 60vw;
     background-image: url(bunny.png);
     background-repeat: no-repeat;
@@ -127,8 +127,8 @@ button {
 
 .noteContainer{
     font-family: 'Indie Flower', sans-serif;
-    width: 150px;
-    height: 175px;
+    min-width: 150px;
+    min-height: 175px; 
     background-color: #f0f8ca;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f8eb94' fill-opacity='0.48'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
     border: 1px solid rgb(149, 147, 147);
@@ -181,20 +181,42 @@ button {
 /* Media Queries */
 @media all and (min-width: 1024px) and (max-width: 1280px) {
 .noteContainer{
-    width: 1000px;
-    height: 1350px;
+    min-width: 200px;
+    min-height: 250px;
 }
  }
 
 @media all and (min-width: 768px) and (max-width: 1024px) {
-
+    #titleInput, #textArea{
+        min-width: 200px;
+    }
  }
 
 @media all and (min-width: 480px) and (max-width: 768px) {
-
+    .mainContainer{
+        width: 100%;
+    }
+    .fridgeContainer{
+        width: 100%;
+    }
+    #titleInput, #textArea{
+        max-width: 100px;
+    }
+    button {
+        padding: 0.3em .7em;
+        font-size: 12px;
+       }
  }
 
 @media all and (max-width: 480px) { 
+    #titleInput, #textArea{
+        max-width: 100px;
+    }
+    button {
+        padding: 0.3em .7em;
+        font-size: 12px;
+       }
+ }
     
 }
 
