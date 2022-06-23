@@ -160,7 +160,6 @@ button {
 .noteTitle{
     font-family: 'Permanent Marker', cursive;
     font-weight: 700;
-    /* margin: 5px; */
 }
 
 .fa.fa-star,
@@ -178,10 +177,8 @@ button {
     font-size: 12px;
 }
 
-/* Media Queries */
-@media all and (min-width: 1024px) and (max-width: 1280px) {
 
- }
+/* Media Queries */
 
 @media all and (min-width: 768px) and (max-width: 1024px) {
     #titleInput, #textArea{
@@ -196,12 +193,10 @@ button {
         margin: 1%;
     }
     .mainContainer, .fridgeContainer{
-        min-width: 100vh;
+        min-width: 100%;
 
     }
-    .noteContainer{
-        /* min-width: 100vh; */
-    }
+   
     #titleInput, #textArea{
         min-width: 250px;
     }
