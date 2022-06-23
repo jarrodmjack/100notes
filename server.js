@@ -102,23 +102,6 @@ app.delete('/deleteNote', async (request, response) => {
 
 
 
-app.post('/sendDateInfo', async(request, response) => {
-           
-    try {
-        // await db.collection('100notes').updateOne({dateAdded: dateAdded, clientTimeZone: clientTimeZone})
-     const    clientTimeZone = request.body.timeZone 
-    // const clientTimeSessionStart = request.body.date
-   const   dateAdded = moment().tz(clientTimeZone).format()
-
-        // console.log(dateAdded);
-        response.json('Date Received, thanks client side Js!')
-    } catch(error) {
-        console.error(error)
-    }
-})
-
-
-
 // Receives timezone info from client side js.
 app.post('/sendDateInfo', async(request, response) => {
            
