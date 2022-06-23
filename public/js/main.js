@@ -3,7 +3,7 @@ const thumbText = document.querySelectorAll('.fa-star')
 // on page load, if there is no client date and timezone info in sessionStorage, it runs the async function sendDateInfo() (it's at the very end.)
 window.onload = _ =>  !sessionStorage.getItem('date sent') ?  sendDateInfo() : 'Date sent!'
 // we use session storage because it's less persistant than local storage, we want the data to be deleted once tabs are closed
-// that way when the end user upons a tab from a different timezone or manually change their machine timezones for preference, new session storage data is stored.
+// that way when the end user opens a tab from a different timezone or manually change their machine timezones for preference, new session storage data is stored.
 // an unlikely scenario, but we address it in the interest of accuracy and thoroughness
 
 // (e) => deleteNote(e.target) is a callback on the eventListener and it
@@ -115,15 +115,14 @@ async function addLike(targ){
 // that way we get clients date according to their machines, not servers.
 async function sendDateInfo() {
     const clientTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const clientDate = new Date
+
   
      try{
         const send = await fetch('sendDateInfo', {
            method: 'post',
            headers: {'Content-Type': 'application/json'},
            body: JSON.stringify({
-              timeZone: `${clientTimeZone}`,
-              date: `${clientDate}`
+              timeZone: `${clientTimeZone}`
            })
          
         })
