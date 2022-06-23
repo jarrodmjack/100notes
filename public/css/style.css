@@ -72,8 +72,8 @@ button {
 /* Form container/main container */
 
 .mainContainer{
-    /* min-height: 100vh; */
     width: 30vw;
+    max-height: 550px;
     background-color: rgba(152, 213, 234, 0.65);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 6px );
@@ -180,10 +180,7 @@ button {
 
 /* Media Queries */
 @media all and (min-width: 1024px) and (max-width: 1280px) {
-.noteContainer{
-    min-width: 200px;
-    min-height: 250px;
-}
+
  }
 
 @media all and (min-width: 768px) and (max-width: 1024px) {
@@ -193,24 +190,34 @@ button {
  }
 
 @media all and (min-width: 480px) and (max-width: 768px) {
-    .mainContainer{
-        width: 100%;
+    
+    .contentContainer{
+        display: block;
+        margin: 1%;
     }
-    .fridgeContainer{
-        width: 100%;
+    .mainContainer, .fridgeContainer{
+        min-width: 100vh;
+
+    }
+    .noteContainer{
+        /* min-width: 100vh; */
     }
     #titleInput, #textArea{
-        max-width: 100px;
+        min-width: 250px;
+    }
+    .formContainer>h1{
+        margin-top: 0;
     }
     button {
-        padding: 0.3em .7em;
-        font-size: 12px;
+        margin-bottom: 5px;
        }
  }
 
-@media all and (max-width: 480px) { 
+@media all and (max-width: 480px) {
+   
+     
     #titleInput, #textArea{
-        max-width: 100px;
+        min-width: 100px;
     }
     button {
         padding: 0.3em .7em;
@@ -218,7 +225,7 @@ button {
        }
  }
     
-}
+
 
 
 
