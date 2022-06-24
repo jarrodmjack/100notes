@@ -23,7 +23,9 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-
+function formatWhiteSpace(str) {
+    return str.replace(/[ ]+/g, ' ').trim()
+}
 
 app.get('/', async (request, response) => {
     try {
@@ -62,7 +64,12 @@ app.post('/addNote', async (request, response) => {
         try {
         
 
-            await db.collection('100notes').insertOne({ noteTitle: request.body.noteTitle.trim().replace(/ +/g, ' '), noteBody: request.body.noteBody, likes: 0, dateAdded })
+            await db.collection('100notes').insertOne({ 
+                noteTitle: formatWhiteSpace(request.body.noteTitle), 
+                noteBody: formatWhiteSpace(request.body.noteBody),
+                likes: 0,
+                dateAdded 
+            })
             console.log('Note Added')
       
         } catch (error) {
@@ -76,7 +83,9 @@ app.post('/addNote', async (request, response) => {
 
 
 app.put('/addOneLike', (request, response) => {
-    db.collection('100notes').updateOne({ noteTitle: request.body.noteTitleS.trim(), noteBody: request.body.noteBodyS.trim(), likes: request.body.likesS }, {
+    db.collection('100notes').updateOne({ 
+        noteTitle: formatWhiteSpace(request.body.noteTitleS) 
+    }, {
         $set: {
             likes: Number(request.body.likesS + 1)
         }
@@ -95,7 +104,9 @@ app.put('/addOneLike', (request, response) => {
 app.delete('/deleteNote', async (request, response) => {
     // console.log(request.body.noteTitleS)
     try {
-        const result = await db.collection('100notes').deleteOne({ noteTitle: request.body.noteTitleS.trim() })
+        const result = await db.collection('100notes').deleteOne({ 
+            noteTitle: formatWhiteSpace(request.body.noteTitleS)
+        })
         console.log('Note Deleted')
         response.json('Note Deleted')
     } catch (error) {
@@ -108,7 +119,6 @@ app.delete('/deleteAllNotes', async(request, response) => {
     try {
         await db.collection('100notes').deleteMany({})
         console.log('All Notes Deleted')
-        // response.redirect('/')
     } catch (error) {
         console.error(error)
     }finally {
