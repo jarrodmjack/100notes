@@ -19,19 +19,24 @@
 
     <main class="contentContainer">
 
-
+        <div class="deleteBtnContainer">
         <section class="mainContainer">
-            <div class="formContainer">
-                <h1>100 Notes</h1>
-                <form class="form" action="/addNote" method="POST">
-                    <label for="noteTitle">Add New Note</label>
-                    <input type="text" placeholder="Note Title" name="noteTitle" id="titleInput">
-                    <textarea placeholder="Note Body" name="noteBody" id="textArea" cols="3" rows="10" spellcheck="true"></textarea>
-                    <button type="submit" id="button">Submit</button>
-                </form>
-            </div>
-        </section>
+           
+                <div class="formContainer">
+                    <h1>100 Notes</h1>
+                    <form class="form" action="/addNote" method="POST">
+                        <label for="noteTitle">Add New Note</label>
+                        <input type="text" placeholder="Note Title" name="noteTitle" id="titleInput">
+                        <textarea placeholder="Note Body" name="noteBody" id="textArea" cols="3" rows="10"
+                            spellcheck="true"></textarea>
+                        <button type="submit" id="button">Submit</button>
 
+                    </form>
+
+                </div>
+        </section>
+        <button id="deleteAllBtn" class="deleteAllBtn">Delete All Notes</button>
+        </div>
         <section class="fridgeContainer">
             <!-- <a href="notesLogo">100 Notes</a> -->
 
@@ -97,7 +102,8 @@
                         simplicity.  In this case we append the number of likes after '---' in the id so that we
                         can get that number directly from this id by splitting it in main.js so we can use it to 
                         update that number in the database.-->
-                        <span class='fa fa-star' id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}---${info[i].likes}`%>">
+                        <span class='fa fa-star'
+                            id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}---${info[i].likes}`%>">
                         </span>
                         <span class='fa fa-trash' id="<%= `${info[i].noteTitle.replace(/ +/g, '-')}`%>-delete">
 

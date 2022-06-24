@@ -1,5 +1,6 @@
 const deleteText = document.querySelectorAll('.fa-trash')
 const thumbText = document.querySelectorAll('.fa-star')
+const deleteAll = document.querySelector('.deleteAllBtn')
 
 // on the submit button click this will run a function that'll send the user time zone to the server
 document.querySelector('#button').addEventListener('click', sendDateInfo)
@@ -24,6 +25,9 @@ Array.from(deleteText).forEach((element)=>{
 Array.from(thumbText).forEach((element)=>{
     element.addEventListener('click', (e) => addLike(e.target))
 })
+
+// DELETE ALL BUTTON
+deleteAll.addEventListener('click', deleteAllNotes)
 
 // targ here refers to e.target in the eventlistener's call to this function
 // it will refer to the DOM element that was clicked on to trigger the event
@@ -133,4 +137,29 @@ async function sendDateInfo() {
        } catch(err) {
            console.log(err)
        }  
+}
+
+
+
+async function deleteAllNotes(){
+
+
+    
+
+
+    try{
+        const response = await fetch('deleteAllNotes', {
+            method: 'delete',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({})
+          })
+
+        
+        
+        location.reload()
+
+    }catch(err){
+        console.log(err)
+    }
+
 }

@@ -43,6 +43,7 @@ app.get('/', async (request, response) => {
 
 
 
+
 app.post('/addNote', async (request, response) => {
     // This function returns true if there are less than 100 notes, and false otherwise.
     async function checkNoteCount() {
@@ -59,8 +60,11 @@ app.post('/addNote', async (request, response) => {
         
         // Add the dateAdded variables to the document so it can be retrieved from the main template.
         try {
+        
+
             await db.collection('100notes').insertOne({ noteTitle: request.body.noteTitle.trim().replace(/ +/g, ' '), noteBody: request.body.noteBody, likes: 0, dateAdded })
             console.log('Note Added')
+      
         } catch (error) {
             console.error(error)
         } finally {
@@ -99,6 +103,18 @@ app.delete('/deleteNote', async (request, response) => {
     }
 })
 
+
+app.delete('/deleteAllNotes', async(request, response) => {
+    try {
+        await db.collection('100notes').deleteMany({})
+        console.log('All Notes Deleted')
+        // response.redirect('/')
+    } catch (error) {
+        console.error(error)
+    }finally {
+        response.redirect('/')
+    }
+})
 
 
 
