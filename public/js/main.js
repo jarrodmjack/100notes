@@ -142,9 +142,20 @@ async function sendDateInfo() {
 
 
 async function deleteAllNotes(){
-
-
-    
+// this warns the user they're about to delete all notes permanently. It also removes the possibility of accidental deletion
+    let warning = prompt('Are you sure? This will permanently delete all notes. To proceed type in the word "deelaytay" then click OK.')
+    if (warning === null) {return }
+    else {
+        if(warning !== 'deelaytay') {
+            let i = 0
+            while(warning !== 'deelaytay') {
+            if(warning === null) {return}
+             warning = prompt('To delete all notes, type in "deelaytay" then click OK.')
+             i++
+        }
+        }
+        
+    }
 
 
     try{
