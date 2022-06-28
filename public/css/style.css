@@ -14,6 +14,16 @@ html {
 
 /* Main styles */
 
+header {
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+}
+header > p {
+    text-align: center;
+}
+
+
 body {
     color: rgb(34, 34, 34);
     background-color: #f9f8f9;

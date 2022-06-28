@@ -43,6 +43,26 @@ app.get('/', async (request, response) => {
 })
 
 
+//
+
+app.get('/signIn', (request,response) => {
+    response.render('signin.ejs')
+})
+app.get('/signUp', (request,response) => {
+    response.render('signup.ejs')
+})
+
+app.post('/signIn', async (request,response) => {
+  
+})
+
+app.post('/signUp', async (request,response) => {
+   
+})
+
+//
+
+
 
 
 
