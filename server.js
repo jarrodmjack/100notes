@@ -46,10 +46,10 @@ app.get('/', async (request, response) => {
 //
 
 app.get('/signIn', (request,response) => {
-    response.render('signin.ejs')
+    response.render('sign-in.ejs')
 })
 app.get('/signUp', (request,response) => {
-    response.render('signup.ejs')
+    response.render('sign-up.ejs')
 })
 
 app.post('/signIn', async (request,response) => {
