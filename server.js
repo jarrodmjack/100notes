@@ -2,6 +2,8 @@ import 'dotenv/config'
 import express from 'express' 
 // moment-timezone module provides methods with which we can pass the client's timezone as an argument and return their date and time
 import moment from 'moment-timezone'
+// bcrypt for hashing passwords
+import bcrypt from 'bcrypt'
 import mongo from 'mongodb'
 const { MongoClient } = mongo
 
@@ -23,9 +25,43 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+
+
+// class for creating new users
+class CreateUser {
+    constructor(name, email, password, numberOfNotes, premium) {
+        this._name = name,
+        this._email = email,
+        this._password = password,
+        this._numberOfNotes = numberOfNotes,
+        this._premium = premium
+    }
+    get name() {
+        return this._name
+    }
+    get email() {
+        return this._email
+    }
+    get password() {
+        return this._password
+    }
+    get numberOfNotes() {
+        return this._numberOfNotes
+    }
+    get premium() {
+        return this._premium
+    }
+    unlockPremium() {
+        return this._premium = true
+    }
+}
+
+
 function formatWhiteSpace(str) {
     return str.replace(/[ ]+/g, ' ').trim()
 }
+
+
 
 app.get('/', async (request, response) => {
     try {
@@ -43,8 +79,7 @@ app.get('/', async (request, response) => {
 })
 
 
-//
-
+// routes for signing in  and signing up
 app.get('/signIn', (request,response) => {
     response.render('sign-in.ejs')
 })
@@ -57,10 +92,20 @@ app.post('/signIn', async (request,response) => {
 })
 
 app.post('/signUp', async (request,response) => {
-   
+    try {
+        // hashing the password using method from bcrypt module 
+        const hashedPassword = await bcrypt.hash(request.body.password, 10)
+        // creates a new user using the CreateUser class with request name,email,hashedpassword, number of notes 0, premium false)
+        const newUser = new CreateUser(request.body.name, request.body.email, hashedPassword, 0,false)
+        // save to db
+        db.collection('users').insertOne(newUser)
+        // take the user to sign in page
+        response.render('sign-in.ejs')
+    }  catch {
+        response.redirect('/signUp')
+    } 
 })
 
-//
 
 
 
