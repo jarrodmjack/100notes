@@ -14,3 +14,4 @@ Once we had the main functionality working we began working with CSS to establis
 
 Also check out a couple of our other projects:
 
+Clearcoin: https://github.com/jarrodmjack/Clear-coin-app
