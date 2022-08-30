@@ -1,17 +1,54 @@
 
-Project Name: 100notes
+# Introduction
 
-This is a group CRUD app project utilizing Node.js/Express to build our own API. The user will be able to create/delete/edit their own notes and all notes will be stored in a database via MongoDB. Users will also be able to notes sort by date/importance.
+100 Notes is an application used to take personalized notes to save paper.
 
-Link to project: https://github.com/jarrodmjack/100notes
+---
 
-How It's Made: Tech used: HTML, CSS, JavaScript, EJS, Node.JS, Express, MongoDB
+# Objectives
 
-We started out building our API via Node.js and Express, making sure all create, update and delete functionality was working. 
-Once we had the main functionality working we began working with CSS to establish a general layout of where the notes would be and how they would be stored on screen for the user. 
+My main objective for this project was to make an application that looks familiar, is easy to use and saves the environment! 
 
-<!-- Lessons Learned: No matter what your experience level, being an engineer means continuously learning. Every time you build something you always have those whoa this is awesome or fuck yeah I did it! moments. This is where you should share those moments! Recruiters and interviewers love to see that you're self-aware and passionate about growing. -->
+---
 
-Also check out a couple of our other projects:
+# Who is this for? 
 
-Clearcoin: https://github.com/jarrodmjack/Clear-coin-app
+This is for the average note taker, office worker, environmentalist.
+
+---
+
+# Optimizations 
+
+  These are some of the optimizations I am in the midst of implementing into my project given the time.
+  
+- I would like to add some sort of Authentication
+- I'd like to turn the flexbox display into a grid display
+- General progressive rendering enhancements and functionality on older browsers.
+
+---
+
+# Tech used 
+
+JavaScript, MongoDB, Express, Node, CSS, EJS
+
+---
+
+# Packages/Dependencies used 
+
+express, mongodb
+
+---
+
+# Install all the dependencies or node packages used for development via Terminal
+
+`npm install` 
+
+---
+
+# Things to add
+
+- Create a `.env` file. 
+  - PORT: 3000 (can be any port example: 3400) 
+  - DB_STRING: `your database URI` 
+ ---
+
